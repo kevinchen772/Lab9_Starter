@@ -76,7 +76,7 @@
       <button>Console Assert</button>
       <button>Console Clear</button>
       <button>Console Dir</button>
-      <button>Console dirxml</button>
+      <button id="dirxml">Console dirxml</button>
       <button>Console Group Start</button>
       <button>Console Group End</button>
       <button>Console Table</button>
@@ -101,6 +101,103 @@
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
+    let consoleLog = errorBtns[0];
+    let consoleError = errorBtns[1];
+    let consoleCount = errorBtns[2];
+    let consoleWarn = errorBtns[3];
+    let consoleAssert = errorBtns[4];
+    let consoleClear = errorBtns[5];
+    let consoleDir = errorBtns[6];
+    let consoleDirxml = errorBtns[7];
+    let consoleGroupS = errorBtns[8];
+    let consoleGroupE = errorBtns[9];
+    let consoleTable = errorBtns[10];
+    let StartTimer = errorBtns[11];
+    let EndTimer = errorBtns[12];
+    let consoleTrace = errorBtns[13];
+    let globalError = errorBtns[14];
+    consoleLog.addEventListener('click', () => {
+      console.log("This is console log button");
+    });
+
+    consoleError.addEventListener('click', () => {
+      console.error("This is console error button");
+    });
+
+    consoleCount.addEventListener('click', () => {
+      console.count("Count Click");
+    });
+
+    consoleWarn.addEventListener('click', () => {
+      console.warn("Warning!! Dangerous Operation!");
+    });
+
+    consoleAssert.addEventListener('click', () => {
+      const x = 1;
+      const y = 2;
+      const reason = "1 is not greater than 2!";
+      console.assert(x > y, { x, y, reason });
+    });
+
+    consoleClear.addEventListener('click', () => {
+      console.clear();
+    });
+
+    consoleDir.addEventListener('click', () => {
+      let a = ["Hello, this is an array object!"]
+      console.dir(a);
+    });
+
+    consoleDirxml.addEventListener('click', () => {
+      console.dirxml(consoleDirxml);
+    });
+
+    consoleGroupS.addEventListener('click', () => {
+      console.group();
+    });
+
+    consoleGroupE.addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    consoleTable.addEventListener('click', () => {
+      var school = [
+        {
+          name: 'University of California at San Diego',
+          students: 33333,
+        },
+        {
+          name: 'University of California, Berkley',
+          students: 21332,
+        },
+        {
+          name: 'University of California, Los Angeles',
+          students: 232454,
+        }
+      ];
+      console.table(school);
+    });
+
+    StartTimer.addEventListener('click', () => {
+      console.time("Timer Button");
+    });
+
+    EndTimer.addEventListener('click', () => {
+      console.timeEnd("Timer Button");
+    });
+
+    consoleTrace.addEventListener('click', () => {
+      const handleBtnClick= () => { deep(); };
+      const deep = () => { deeper(); };
+      const deeper = () => { deepest(); };
+      const deepest = () => { console.trace(); };
+      handleBtnClick();
+    });
+
+    globalError.addEventListener('click', () => {
+      console.log(boom);
+    });
+
     // You may move this JS to another file if you wish
   </script>
 </body>
