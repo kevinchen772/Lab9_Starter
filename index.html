@@ -5,6 +5,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({
+      token: "169b49d1bd3f420db12656bebb1807f9"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
   <title>Lab 9</title>
 
   <style>
@@ -101,6 +108,8 @@
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
+    TrackJS.track('Testing TrackJS!');
+                        
     let consoleLog = errorBtns[0];
     let consoleError = errorBtns[1];
     let consoleCount = errorBtns[2];
@@ -116,14 +125,30 @@
     let EndTimer = errorBtns[12];
     let consoleTrace = errorBtns[13];
     let globalError = errorBtns[14];
+    let buttons = document.querySelectorAll("button");
     consoleLog.addEventListener('click', () => {
       console.log("This is console log button");
     });
 
     consoleError.addEventListener('click', () => {
       console.error("This is console error button");
+      try {
+        somethingBad;
+      } catch (exception) {
+        if (exception instanceof ReferenceError) {
+          throw new MyError("Custom Error", exception);
+        } else {
+          throw exception;
+        }
+      }
     });
 
+    class MyError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = this.constructor.name;
+      }
+    }
     consoleCount.addEventListener('click', () => {
       console.count("Count Click");
     });
@@ -144,8 +169,7 @@
     });
 
     consoleDir.addEventListener('click', () => {
-      let a = ["Hello, this is an array object!"]
-      console.dir(a);
+      console.dir(buttons[7]);
     });
 
     consoleDirxml.addEventListener('click', () => {
@@ -187,11 +211,20 @@
     });
 
     consoleTrace.addEventListener('click', () => {
-      const handleBtnClick= () => { deep(); };
+      const handleBtnClick = () => { deep(); };
       const deep = () => { deeper(); };
       const deeper = () => { deepest(); };
       const deepest = () => { console.trace(); };
-      handleBtnClick();
+      try {
+        handleBtnClick();
+      }
+      catch (err) {
+        throw err;
+      }
+      finally {
+        console.log("testing finally");
+      }
+
     });
 
     globalError.addEventListener('click', () => {
